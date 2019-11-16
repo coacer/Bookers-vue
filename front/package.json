@@ -1,0 +1,21 @@
+{
+  "name": "sample_app",
+  "version": "1.0.0",
+  "description": "My splendid Nuxt.js project",
+  "author": "coacer",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate"
+  },
+  "dependencies": {
+    "@nuxtjs/axios": "^5.3.6",
+    "firebase": "^7.3.0",
+    "nuxt": "^2.0.0"
+  },
+  "devDependencies": {
+    "@nuxtjs/vuetify": "^1.0.0"
+  }
+}
