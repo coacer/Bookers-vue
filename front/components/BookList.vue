@@ -18,8 +18,6 @@
 </template>
 
 <script>
-import axios from 'axios';
-
 export default {
   data() {
     return {
@@ -27,7 +25,7 @@ export default {
     }
   },
   async created() {
-    const { data } = await axios.get('/api/v1/books');
+    const { data } = await this.$axios.get('/api/v1/books');
     this.books = data;
   }
 }

@@ -46,9 +46,9 @@ export default {
     ...mapActions(['setUser']),
     async signup() {
       try {
-        if(!(this.password === this.passwordConfirmation)) {
+        if(!(this.password === this.passwordConfirmation))
           throw new Error('パスワードが一致しません');
-        }
+
         await firebase.auth().createUserWithEmailAndPassword(this.email, this.password);
         this.setUser(user);
         this.$router.push('/');

@@ -12,7 +12,10 @@
           </v-btn>
         </template>
         <v-btn text v-if="isAuthenticated" @click="logout">Logout</v-btn>
-        <v-btn text to="/users/signin" v-else nuxt>Login</v-btn>
+        <template v-else>
+          <v-btn text to="/users/signin" nuxt>Login</v-btn>
+          <v-btn text to="/users/signup" nuxt>Sign up</v-btn>
+        </template>
       </v-toolbar-items>
 
     </v-toolbar>

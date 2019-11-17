@@ -13,7 +13,6 @@
 </template>
 
 <script>
-import axios from 'axios';
 import MembersOnly from '~/components/members-only';
 
 export default {
@@ -21,7 +20,7 @@ export default {
     MembersOnly
   },
   async created() {
-    const { data } = await axios.get(`/api/v1/books/${this.$route.params.id}`);
+    const { data } = await this.$axios.get(`/api/v1/books/${this.$route.params.id}`);
     this.book = data;
   },
   data() {
@@ -31,7 +30,7 @@ export default {
   },
   methods: {
     async deleteBook() {
-      await axios.delete(`/api/v1/books/${this.book.id}`);
+      await this.$axios.delete(`/api/v1/books/${this.book.id}`);
       this.$router.push({ name: 'index' });
     }
   }

@@ -18,7 +18,7 @@
 
 <script>
 import firebase from '~/plugins/firebase'
-import { mapActions, mapState, mapGetters, mapMutations } from 'vuex'
+import { mapActions, mapState, mapMutations } from 'vuex'
 
 export default {
   data() {
@@ -31,12 +31,11 @@ export default {
   },
   computed: {
     ...mapState(['user']),
-    ...mapGetters(['isAuthenticated']),
   },
   mounted() {
     firebase.auth().onAuthStateChanged((user) => {
       this.setUser(user)
-      if(this.isAuthenticated) {
+      if(!!this.$store.state.user) {
         this.$router.push('/');
       }
     });

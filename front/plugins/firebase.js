@@ -1,16 +1,18 @@
 import firebase from 'firebase'
 
+const config = {
+    apiKey: 'AIzaSyD3vmjbvnlT2hucbLPvfR7MGveH_4w4H-s', // .envを使うとなぜかエラー
+    authDomain: process.env.AUTHDOMAIN,
+    databaseURL: process.env.DATABASEURL,
+    projectId: process.env.PROJECTID,
+    storageBucket: process.env.STORAGEBUCKET,
+    messagingSenderId: process.env.MESSAGINGSENDERID,
+    appId: process.env.APPID,
+    measurementId: process.env.MEASUREMENTID
+  };
+
 if (!firebase.apps.length) {
-  firebase.initializeApp({
-    apiKey: "AIzaSyD3vmjbvnlT2hucbLPvfR7MGveH_4w4H-s",
-    authDomain: "bookers-vue.firebaseapp.com",
-    databaseURL: "https://bookers-vue.firebaseio.com",
-    projectId: "bookers-vue",
-    storageBucket: "bookers-vue.appspot.com",
-    messagingSenderId: "606256090842",
-    appId: "1:606256090842:web:65d36035d0a3d005c05fe3",
-    measurementId: "G-KE5LYFFRSR"
-  })
+  firebase.initializeApp(config);
 }
 
 export default firebase
