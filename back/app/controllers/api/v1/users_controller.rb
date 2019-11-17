@@ -1,13 +1,14 @@
 class Api::V1::UsersController < ApplicationController
-  before_action :set_user, only: [:show, :update]
+  before_action :set_user, only: :update
 
   def index
     users = User.all.reverse
     render json: users
   end
 
-  def show
-    render json: @user
+  def login
+    user = User.find_by(email: params[:email])
+    render json: user
   end
 
   def create

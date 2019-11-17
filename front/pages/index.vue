@@ -9,10 +9,5 @@ export default {
   components: {
     BookList,
   },
-  mounted() {
-    console.log(
-  process.env.API_KEY,
-);
-  }
 }
 </script>

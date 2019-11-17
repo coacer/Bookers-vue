@@ -46,12 +46,24 @@ export default {
     ...mapActions(['setUser']),
     async signup() {
       try {
+        this.$nuxt.$loading.start();
         if(!(this.password === this.passwordConfirmation))
           throw new Error('パスワードが一致しません');
 
         await firebase.auth().createUserWithEmailAndPassword(this.email, this.password);
+        console.log("api");
+        const { data } = await this.$axios.post('/api/v1/users', {
+          user: {
+            email: this.email
+          }
+        });
+        console.log("api after");
+        if(data.status === 500)
+          alert("Can't saved!!");
+
         this.setUser(user);
         this.$router.push('/');
+        this.$nuxt.$loading.stop();
       } catch(error) {
         this.errorMessage = error;
       }
