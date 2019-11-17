@@ -27,6 +27,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
+
 export default {
   props: {
     type: {
@@ -50,6 +52,9 @@ export default {
 
     }
   },
+  computed: {
+    ...mapState(['userId']),
+  },
   async mounted() {
     if(this.type === "edit") {
       const { data } = await this.$axios.get(`/api/v1/books/${this.$route.params.id}`);
@@ -65,7 +70,8 @@ export default {
       const { data } = await this.$axios.post('/api/v1/books', {
         book: {
           title: this.title,
-          body: this.body
+          body: this.body,
+          user_id: this.userId
         }
       });
       if(data.status === 200) {

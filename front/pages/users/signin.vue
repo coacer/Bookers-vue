@@ -41,19 +41,22 @@ export default {
     });
   },
   methods : {
-    ...mapActions(['setUser']),
+    ...mapActions(['setUser', 'setUserId']),
     // ...mapMutations(['removeNavList']),
-    login() {
-        this.$nuxt.$loading.start();
-        firebase.auth().signInWithEmailAndPassword(this.email, this.password)
-          .then(user => {
-            // this.removeNavList();
-            this.$router.push('/');
-          }).catch((error) => {
-            this.errorMessage = error;
-          }).finally(() => {
-            this.$nuxt.$loading.finish();
-          });
+    async login() {
+      this.$nuxt.$loading.start();
+      try {
+        const { data } = await this.$axios.post('/api/v1/users/login', {
+          email: this.email
+        });
+        this.setUserId(data.id);
+        console.log("UserId: ", this.$store.state.userId);
+        await firebase.auth().signInWithEmailAndPassword(this.email, this.password);
+        this.$router.push('/');
+      } catch(error) {
+        this.errorMessage = error;
+      }
+      this.$nuxt.$loading.finish();
     },
     logout() {
       firebase.auth().signOut()
