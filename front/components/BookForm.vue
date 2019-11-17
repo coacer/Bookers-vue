@@ -27,8 +27,6 @@
 </template>
 
 <script>
-import axios from 'axios';
-
 export default {
   props: {
     type: {
@@ -54,7 +52,7 @@ export default {
   },
   async mounted() {
     if(this.type === "edit") {
-      const { data } = await axios.get(`/api/v1/books/${this.$route.params.id}`);
+      const { data } = await this.$axios.get(`/api/v1/books/${this.$route.params.id}`);
         this.title = data.title;
         this.body = data.body;
     }
@@ -64,7 +62,7 @@ export default {
       this.type === "new" ? this.newBook() : this.editBook()
     },
     async newBook() {
-      const { data } = await axios.post('/api/v1/books', {
+      const { data } = await this.$axios.post('/api/v1/books', {
         book: {
           title: this.title,
           body: this.body
@@ -82,7 +80,7 @@ export default {
       }
     },
     async editBook() {
-      const { data } = await axios.patch(`/api/v1/books/${this.$route.params.id}`, {
+      const { data } = await this.$axios.patch(`/api/v1/books/${this.$route.params.id}`, {
         book: {
           title: this.title,
           body: this.body

@@ -18,19 +18,15 @@
 </template>
 
 <script>
-import axios from 'axios';
-
 export default {
   data() {
     return {
       books: [],
     }
   },
-  created() {
-    axios.get('/api/v1/books')
-      .then(res => {
-        this.books = res.data;
-      });
+  async created() {
+    const { data } = await this.$axios.get('/api/v1/books');
+    this.books = data;
   }
 }
 </script>

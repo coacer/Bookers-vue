@@ -1,13 +1,6 @@
 <template>
   <div>
-    <!-- ログイン中に表示される画面 -->
-    <div v-if="isAuthenticated">
-      {{ user.email }}でログイン中です<br>
-      <button v-on:click="logout">ログアウト</button><br>
-      <a href="/member-page">メンバーページへ</a>
-    </div>
-    <!-- ログインしていない時に表示される画面 -->
-    <div v-else>
+    <v-alert type="error" v-show="errorMessage">{{ errorMessage }}</v-alert>
       <v-card width="50%" class="mx-auto mt-5">
         <v-card-title>Sign In</v-card-title>
         <v-card-text>
@@ -21,42 +14,43 @@
         </v-card-text>
       </v-card>
     </div>
-  </div>
 </template>
 
 <script>
 import firebase from '~/plugins/firebase'
-import { mapActions, mapState, mapGetters, mapMutations } from 'vuex'
+import { mapActions, mapState, mapMutations } from 'vuex'
 
 export default {
   data() {
     return {
       email: '',
       password: '',
-      showPassword: false
+      showPassword: false,
+      errorMessage: ''
     }
   },
   computed: {
-    ...mapState(['user', 'navList']),
-    ...mapGetters(['isAuthenticated']),
+    ...mapState(['user']),
   },
   mounted() {
     firebase.auth().onAuthStateChanged((user) => {
       this.setUser(user)
-    })
+      if(!!this.$store.state.user) {
+        this.$router.push('/');
+      }
+    });
   },
   methods : {
     ...mapActions(['setUser']),
-    ...mapMutations(['removeNavList']),
+    // ...mapMutations(['removeNavList']),
     login() {
         this.$nuxt.$loading.start();
         firebase.auth().signInWithEmailAndPassword(this.email, this.password)
           .then(user => {
-            this.removeNavList();
+            // this.removeNavList();
             this.$router.push('/');
-            this.$nuxt.$loading.finish();
           }).catch((error) => {
-            alert(error)
+            this.errorMessage = error;
           }).finally(() => {
             this.$nuxt.$loading.finish();
           });
