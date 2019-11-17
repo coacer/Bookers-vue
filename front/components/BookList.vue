@@ -26,11 +26,9 @@ export default {
       books: [],
     }
   },
-  created() {
-    axios.get('/api/v1/books')
-      .then(res => {
-        this.books = res.data;
-      });
+  async created() {
+    const { data } = await axios.get('/api/v1/books');
+    this.books = data;
   }
 }
 </script>
