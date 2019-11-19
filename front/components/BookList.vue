@@ -1,33 +1,40 @@
 <template>
-  <v-simple-table>
-    <template v-slot:default>
-      <thead>
-        <tr>
-          <th class="text-left">Title</th>
-          <th class="text-left">Opinion</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="book in books" :key="book.id">
-          <nuxt-link :to="`/books/${book.id}`" tag="td" style="cursor: pointer;">{{ book.title }}</nuxt-link>
-          <td>{{ book.body }}</td>
-        </tr>
-      </tbody>
-    </template>
-  </v-simple-table>
+  <v-layout wrap>
+    <v-flex xs4 v-for="book in books" :key="book.id">
+
+      <base-book class="ma-4">
+        <template v-slot:user-name>{{ book.user.name }}</template>
+        <template v-slot:book-title>{{ book.title }}</template>
+        <template v-slot:book-body>{{ book.body }}</template>
+        <v-card-actions>
+          <v-btn :to="`/books/${book.id}`" class="grey white--text" nuxt>show</v-btn>
+        </v-card-actions>
+      </base-book>
+
+    </v-flex>
+  </v-layout>
 </template>
 
 <script>
+import BaseBook from '~/components/BaseBook.vue';
+
 export default {
+
+  components: {
+    BaseBook,
+  },
+
   data() {
     return {
       books: [],
     }
   },
+
   async created() {
     const { data } = await this.$axios.get('/api/v1/books');
     this.books = data;
-  }
+  },
+
 }
 </script>
 

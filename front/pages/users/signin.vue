@@ -42,7 +42,6 @@ export default {
   },
   methods : {
     ...mapActions(['setUser', 'setUserId']),
-    // ...mapMutations(['removeNavList']),
     async login() {
       this.$nuxt.$loading.start();
       try {
@@ -50,7 +49,6 @@ export default {
           email: this.email
         });
         this.setUserId(data.id);
-        console.log("UserId: ", this.$store.state.userId);
         await firebase.auth().signInWithEmailAndPassword(this.email, this.password);
         this.$router.push('/');
       } catch(error) {

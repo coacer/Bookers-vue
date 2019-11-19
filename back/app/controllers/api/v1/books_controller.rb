@@ -12,6 +12,7 @@ class Api::V1::BooksController < ApplicationController
 
   def create
     book = Book.new(book_params)
+    book.user_id = params[:book][:user_id]
     if book.save
       render json: { status: 200, book: book }
     else
@@ -38,6 +39,6 @@ class Api::V1::BooksController < ApplicationController
   end
 
   def book_params
-    params.require(:book).permit(:title, :body, :user_id)
+    params.require(:book).permit(:title, :body)
   end
 end

@@ -1,5 +1,6 @@
 <template>
   <v-form v-model="valid">
+    <v-alert type="error" v-show="errorMessage">{{ errorMessage }}</v-alert>
     <v-container>
       <v-card class="pa-10" min-height="400px">
         <v-card-title>{{ type }} Book</v-card-title>
@@ -49,7 +50,7 @@ export default {
         v => !!v || 'Opinion is required',
         v => v.length <= 50 || 'Opinion must be less than 50 characters',
       ],
-
+      errorMessage: '',
     }
   },
   computed: {
@@ -58,8 +59,8 @@ export default {
   async mounted() {
     if(this.type === "edit") {
       const { data } = await this.$axios.get(`/api/v1/books/${this.$route.params.id}`);
-        this.title = data.title;
-        this.body = data.body;
+      this.title = data.title;
+      this.body = data.body;
     }
   },
   methods: {
@@ -67,22 +68,26 @@ export default {
       this.type === "new" ? this.newBook() : this.editBook()
     },
     async newBook() {
-      const { data } = await this.$axios.post('/api/v1/books', {
-        book: {
-          title: this.title,
-          body: this.body,
-          user_id: this.userId
+      try {
+        const { data } = await this.$axios.post('/api/v1/books', {
+          book: {
+            title: this.title,
+            body: this.body,
+            user_id: this.userId
+          }
+        });
+        if(data.status === 500) {
+          throw new Error(data.message);
         }
-      });
-      if(data.status === 200) {
         this.$router.push({
           name: "books-id",
           params: {
             id: data.book.id
           }
         });
-      } else {
-        console.log(data.message);
+      } catch(error) {
+console.log(error);
+        this.errorMessage = error;
       }
     },
     async editBook() {

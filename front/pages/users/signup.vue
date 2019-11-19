@@ -5,6 +5,7 @@
         <v-card-title>Sign Up</v-card-title>
         <v-card-text>
           <v-form>
+            <v-text-field v-model="name" prepend-icon="mdi-account" label="Name"/>
             <v-text-field v-model="email" prepend-icon="mdi-email" label="Email"/>
             <v-text-field v-model="password" @click:append="showPassword = !showPassword" prepend-icon="mdi-lock" :append-icon="showPassword ? 'mdi-eye-off' : 'mdi-eye'" :type="showPassword ? 'text' : 'password'" label="Password"/>
             <v-text-field v-model="passwordConfirmation" @click:append="showPassword = !showPassword" prepend-icon="mdi-lock" :append-icon="showPassword ? 'mdi-eye-off' : 'mdi-eye'" :type="showPassword ? 'text' : 'password'" label="Password Confirmation"/>
@@ -24,6 +25,7 @@ import { mapActions, mapGetters } from 'vuex';
 export default {
   data() {
     return {
+      name: '',
       email: '',
       password: '',
       passwordConfirmation: '',
@@ -31,6 +33,11 @@ export default {
       errorMessage: ''
     }
   },
+
+  computed: {
+    ...mapGetters(['isAuthenticated']),
+  },
+
   mounted() {
     firebase.auth().onAuthStateChanged((user) => {
       this.setUser(user)
@@ -39,9 +46,7 @@ export default {
       }
     });
   },
-  computed: {
-    ...mapGetters(['isAuthenticated']),
-  },
+
   methods: {
     ...mapActions(['setUser']),
     async signup() {
@@ -51,15 +56,14 @@ export default {
           throw new Error('パスワードが一致しません');
 
         await firebase.auth().createUserWithEmailAndPassword(this.email, this.password);
-        console.log("api");
         const { data } = await this.$axios.post('/api/v1/users', {
           user: {
-            email: this.email
+            name: this.name,
+            email: this.email,
           }
         });
-        console.log("api after");
         if(data.status === 500)
-          alert("Can't saved!!");
+          throw new Error(data.message);
 
         this.setUser(user);
         this.$router.push('/');
