@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(version: 2019_11_17_090220) do
 
   create_table "users", force: :cascade do |t|
     t.string "email"
+    t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

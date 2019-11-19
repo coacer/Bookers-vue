@@ -6,7 +6,7 @@
 
 <script>
 import BookForm from '~/components/BookForm.vue';
-import MembersOnly from '~/components/members-only';
+import MembersOnly from '~/components/MembersOnly';
 
 export default {
   components: {

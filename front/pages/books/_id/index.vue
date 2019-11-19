@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import MembersOnly from '~/components/members-only';
+import MembersOnly from '~/components/MembersOnly';
 
 export default {
   components: {

@@ -1,7 +1,7 @@
 import firebase from 'firebase'
 
 const config = {
-    apiKey: 'AIzaSyD3vmjbvnlT2hucbLPvfR7MGveH_4w4H-s', // .envを使うとなぜかエラー
+    apiKey: process.env.API_KEY,// .envを使うとなぜかエラー
     authDomain: process.env.AUTHDOMAIN,
     databaseURL: process.env.DATABASEURL,
     projectId: process.env.PROJECTID,
