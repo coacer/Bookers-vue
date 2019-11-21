@@ -5,7 +5,7 @@ Rails.application.routes.draw do
       resources :users, only: [:index, :show, :create, :update] do
         post 'login', on: :collection
       end
-      post 'get_room_info', to: 'room#get_info'
+      post 'room/messages'
     end
   end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
