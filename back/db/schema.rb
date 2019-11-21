@@ -25,7 +25,7 @@ ActiveRecord::Schema.define(version: 2019_11_21_095038) do
     t.string "content"
     t.integer "from_id"
     t.integer "to_id"
-    t.integer "room_id"
+    t.string "room_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

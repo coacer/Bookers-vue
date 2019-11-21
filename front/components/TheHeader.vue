@@ -1,8 +1,9 @@
 <template>
   <div>
     <v-toolbar dark>
-      <v-toolbar-title>Bookers</v-toolbar-title>
-
+      <v-toolbar-title>Bookers
+      [ {{ userId }} ]
+      </v-toolbar-title>
       <v-spacer></v-spacer>
 
       <v-toolbar-items>
@@ -38,13 +39,21 @@ export default {
           name: 'New',
           path: '/books/new'
         },
+        {
+          name: 'チャット1',
+          path: '/chat/1'
+        },
+        {
+          name: 'チャット2',
+          path: '/chat/2'
+        },
       ]
 
     }
   },
   computed: {
     ...mapGetters(['isAuthenticated']),
-    // ...mapState(['navList']),
+    ...mapState(['userId']),
   },
   methods: {
     // ...mapMutations(['addNavList']),
