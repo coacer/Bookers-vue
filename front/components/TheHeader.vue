@@ -1,9 +1,7 @@
 <template>
   <div>
     <v-toolbar dark>
-      <v-toolbar-title>Bookers
-      [ {{ userId }} ]
-      </v-toolbar-title>
+      <v-toolbar-title>Bookers</v-toolbar-title>
       <v-spacer></v-spacer>
 
       <v-toolbar-items>
