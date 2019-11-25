@@ -3,7 +3,11 @@
     <v-flex xs4 v-for="book in books" :key="book.id">
 
       <base-book class="ma-4">
-        <template v-slot:user-name>{{ book.user.name }}</template>
+        <template v-slot:user-name>
+          <nuxt-link :to="{ name: 'users-id', params: { id: book.user.id } }">
+            {{ book.user.name }}
+          </nuxt-link>
+        </template>
         <template v-slot:book-title>{{ book.title }}</template>
         <template v-slot:book-body>{{ book.body }}</template>
         <v-card-actions>

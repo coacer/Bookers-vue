@@ -39,16 +39,7 @@ export default {
           name: 'New',
           path: '/books/new'
         },
-        {
-          name: 'チャット1',
-          path: '/chat/1'
-        },
-        {
-          name: 'チャット2',
-          path: '/chat/2'
-        },
       ]
-
     }
   },
   computed: {
