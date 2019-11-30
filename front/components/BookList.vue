@@ -3,6 +3,15 @@
     <v-flex xs4 v-for="book in books" :key="book.id">
 
       <base-book class="ma-4">
+        <template v-slot:user-image>
+          <v-img
+            :src="book.user.profile_image_url"
+            aspect-ratio="1"
+            class="grey lighten-2"
+            max-width="50"
+            max-height="50"
+          ></v-img>
+        </template>
         <template v-slot:user-name>
           <nuxt-link :to="{ name: 'users-id', params: { id: book.user.id } }">
             {{ book.user.name }}

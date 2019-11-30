@@ -25,7 +25,7 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def update
-    if @user.update(user_params)
+    if @user.update(params.permit(:profile_image, :name, :email))
       render json: { status: 200, user: @user }
     else
       render json: { status: 500, message: @user.errors }
@@ -38,7 +38,7 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:name, :email)
+    params.require(:user).permit(:name, :email, :profile_image)
   end
 
 end

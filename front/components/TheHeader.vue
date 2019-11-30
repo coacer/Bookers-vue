@@ -44,6 +44,18 @@ export default {
     ...mapGetters(['isAuthenticated']),
     ...mapState(['userId']),
   },
+  created() {
+    setTimeout(() => {
+      console.log("userId: ", this.userId);
+      this.navItems.push({
+        name: 'My page',
+        path: {
+          name: 'users-id',
+          params: { id: this.userId }
+        }
+      });
+    }, 0);
+  },
   methods: {
     // ...mapMutations(['addNavList']),
     ...mapActions(['setUser']),
